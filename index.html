@@ -9,11 +9,21 @@
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
   <style>
-    body {
+    /* Reset & Base */
+    * {
+      box-sizing: border-box;
       margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
       min-height: 100vh;
       background: linear-gradient(135deg, #ff758c, #ff7eb3);
-      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
       color: white;
       text-align: center;
       overflow-x: hidden;
@@ -21,27 +31,33 @@
 
     .container {
       padding: 40px 20px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 30px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+      backdrop-filter: blur(10px);
       animation: fadeIn 2s ease-in-out;
+      max-width: 1000px;
+      width: 90%;
     }
 
     h1 {
       font-size: 3rem;
       margin-bottom: 10px;
+      animation: bounce 2s infinite;
     }
 
     p {
       font-size: 1.3rem;
+      margin-bottom: 10px;
+      color: #fff9;
     }
 
-    /* Photo Grid */
+    /* Modern Photo Grid */
     .photos {
       margin-top: 40px;
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 20px;
-      max-width: 900px;
-      margin-left: auto;
-      margin-right: auto;
+      gap: 25px;
     }
 
     .photos img {
@@ -49,16 +65,28 @@
       height: 220px;
       object-fit: cover;
       border-radius: 20px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+      transition: all 0.4s ease;
+      transform: scale(0.95);
       animation: pop 1.5s ease;
+      cursor: pointer;
+    }
+
+    /* Hover Effect */
+    .photos img:hover {
+      transform: scale(1.1) rotate(-2deg);
+      box-shadow: 0 20px 35px rgba(0,0,0,0.5);
+      filter: brightness(1.1);
     }
 
     footer {
       margin-top: 40px;
       font-size: 1.1rem;
-      opacity: 0.9;
+      opacity: 0.8;
+      animation: fadeIn 2s ease-in-out 1s forwards;
     }
 
+    /* Animations */
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(30px); }
       to { opacity: 1; transform: translateY(0); }
@@ -67,6 +95,11 @@
     @keyframes pop {
       0% { transform: scale(0.8); opacity: 0; }
       100% { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
     }
   </style>
 </head>
@@ -80,20 +113,21 @@
 
   <div class="container">
     <h1>🎂 Happy Birthday Menuka (Mimi)! 🎉</h1>
-    <p>Wishing you endless smiles, love, and happiness 💖</p>
-    <p>May your day be as beautiful as you ✨</p>
+    <p>My dearest love 💖, wishing you endless smiles, joy, and all the happiness in the world!</p>
+    <p>You make my life brighter every single day ✨</p>
+    <p>Here’s to more beautiful memories together 🥰</p>
 
     <!-- Photo Section -->
     <div class="photos" id="photoContainer">
-      <!-- Photos will be loaded dynamically -->
+      <!-- Photos loaded dynamically -->
     </div>
 
     <footer>
-      💕 Made with love for Mimi 💕
+      💕 Made with all my love for my amazing girlfriend 💕
     </footer>
   </div>
 
-  <!-- Confetti Script -->
+  <!-- Scripts -->
   <script>
     // Confetti
     function launchConfetti() {
@@ -107,20 +141,19 @@
     launchConfetti();
     setInterval(launchConfetti, 3000);
 
-    // List of photo filenames
+    // List of photos with full GitHub raw URLs
     const photoFiles = [
-          <img src="https://raw.githubusercontent.com/BhawesGanesh/Birthday/main/photos/1000213254.jpg" alt="Mimi Photo 1">
-
-      "1000213270.jpg",
-      "1000213285.jpg",
-      "1000213443.jpg"
+      "https://raw.githubusercontent.com/BhawesGanesh/Birthday/main/photos/1000213254.jpg",
+      "https://raw.githubusercontent.com/BhawesGanesh/Birthday/main/photos/1000213270.jpg",
+      "https://raw.githubusercontent.com/BhawesGanesh/Birthday/main/photos/1000213285.jpg",
+      "https://raw.githubusercontent.com/BhawesGanesh/Birthday/main/photos/1000213443.jpg"
     ];
 
     const container = document.getElementById('photoContainer');
 
-    photoFiles.forEach(file => {
+    photoFiles.forEach(url => {
       const img = document.createElement('img');
-      img.src = `photos/${file}`;
+      img.src = url;
       img.alt = "Mimi Photo";
       container.appendChild(img);
     });
