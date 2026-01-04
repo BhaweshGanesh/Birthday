@@ -15,86 +15,124 @@
       display: flex; justify-content: center; align-items: center;
       padding: 20px; overflow-x: hidden;
     }
+
     h1 { font-family: 'Playfair Display', serif; }
+    
     .container {
-      background: linear-gradient(180deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.05) 100%);
-      backdrop-filter: blur(20px);
+      background: linear-gradient(180deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.05) 100%);
+      backdrop-filter: blur(25px);
       border-radius: 24px;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-      padding: 40px;
-      max-width: 900px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+      padding: 30px 20px;
+      max-width: 800px;
       width: 100%;
-      animation: fadeIn 2s ease-out;
-      border: 1px solid rgba(255,255,255,0.1);
       position: relative;
+      overflow: hidden;
     }
+
     .title {
-      font-size: clamp(2rem, 5vw, 3.5rem);
-      color: white;
+      font-size: clamp(2rem, 6vw, 3.5rem);
+      color: #fff;
       text-align: center;
       margin-bottom: 20px;
       animation: bounce 2s infinite;
-      text-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      text-shadow: 0 4px 25px rgba(0,0,0,0.3);
     }
-    .messages { text-align: center; margin-bottom: 40px; }
+
+    .messages {
+      text-align: center;
+      margin-bottom: 30px;
+      opacity: 0;
+      animation: fadeIn 2s forwards;
+      animation-delay: 0.5s;
+    }
+
     .messages p {
-      font-size: 1.2rem;
-      color: rgba(255,255,255,0.9);
-      margin-bottom: 12px;
-      font-weight: 300;
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.95);
+      margin-bottom: 10px;
+      font-weight: 400;
+      line-height: 1.5;
+      transform: translateY(20px);
+      animation: messageFade 1s forwards;
     }
-    .messages p:nth-child(2) { animation: sparkle 2s ease-in-out infinite; }
+
+    .messages p:nth-child(1) { animation-delay: 0.6s; }
+    .messages p:nth-child(2) { animation-delay: 1s; }
+    .messages p:nth-child(3) { animation-delay: 1.4s; }
+
     .photos {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 20px;
-      margin-bottom: 40px;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+      margin-bottom: 25px;
+      opacity: 0;
+      animation: fadeIn 2s forwards;
+      animation-delay: 2s;
     }
+
     .photo-card {
       position: relative;
       overflow: hidden;
       border-radius: 16px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-      animation: pop 1.5s ease;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+      transform: scale(0.9);
+      animation: pop 1s forwards;
     }
+
     .photo-card img {
       width: 100%;
-      height: 220px;
+      height: 180px;
       object-fit: cover;
       transition: all 0.5s ease;
-      transform: scale(0.95);
     }
+
     .photo-card:hover img {
       transform: scale(1.1) rotate(-2deg);
-      filter: brightness(1.1);
+      filter: brightness(1.15);
     }
-    .photo-card:hover { box-shadow: 0 20px 35px rgba(0,0,0,0.5); }
+
     .footer {
       text-align: center;
       background: rgba(255,255,255,0.1);
       border-radius: 16px;
-      padding: 24px;
+      padding: 20px;
       backdrop-filter: blur(10px);
+      animation: fadeIn 2s forwards;
+      animation-delay: 3s;
     }
-    .footer p { font-size: 1.3rem; color: white; font-weight: 500; animation: float 3s ease-in-out infinite; }
-    .deco { position: absolute; font-size: 2.5rem; animation: float 3s ease-in-out infinite; }
-    .deco-1 { top: -15px; left: -15px; }
-    .deco-2 { top: -15px; right: -15px; animation-delay: 0.5s; }
-    .deco-3 { bottom: -15px; left: -15px; animation-delay: 1s; }
-    .deco-4 { bottom: -15px; right: -15px; animation-delay: 1.5s; }
+
+    .footer p {
+      font-size: 1.2rem;
+      color: #fff;
+      font-weight: 500;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    /* Decorative emojis */
+    .deco { position: absolute; font-size: 2rem; animation: float 3s ease-in-out infinite; }
+    .deco-1 { top: -10px; left: -10px; }
+    .deco-2 { top: -10px; right: -10px; animation-delay: 0.5s; }
+    .deco-3 { bottom: -10px; left: -10px; animation-delay: 1s; }
+    .deco-4 { bottom: -10px; right: -10px; animation-delay: 1.5s; }
+
+    /* Floating hearts */
     .hearts { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: -1; }
     .heart { position: absolute; opacity: 0.3; animation: floatUp 6s ease-in-out infinite; }
 
-    @keyframes fadeIn { from {opacity:0; transform:translateY(30px);} to {opacity:1; transform:translateY(0);} }
-    @keyframes bounce { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-15px);} }
+    /* Animations */
+    @keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
+    @keyframes bounce { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-12px);} }
     @keyframes pop { 0%{transform:scale(0.8);opacity:0;} 100%{transform:scale(1);opacity:1;} }
-    @keyframes float { 0%,100%{transform:translateY(0) rotate(0deg);} 50%{transform:translateY(-10px) rotate(2deg);} }
+    @keyframes float { 0%,100%{transform:translateY(0) rotate(0deg);} 50%{transform:translateY(-8px) rotate(2deg);} }
     @keyframes sparkle { 0%,100%{opacity:1; transform:scale(1);} 50%{opacity:0.7; transform:scale(1.05);} }
     @keyframes floatUp { 0%{transform:translateY(100vh) rotate(0deg);opacity:0;} 10%{opacity:0.3;} 90%{opacity:0.3;} 100%{transform:translateY(-100px) rotate(360deg);opacity:0;} }
+    @keyframes messageFade { from {opacity:0; transform:translateY(20px);} to {opacity:1; transform:translateY(0);} }
+
   </style>
 </head>
 <body>
-  <!-- Floating Hearts Background -->
+  <!-- Floating Hearts -->
   <div class="hearts" id="hearts"></div>
 
   <div class="container">
@@ -107,15 +145,15 @@
     <h1 class="title">🎂 Happy Birthday Menuka (Mimi)! 🎉</h1>
 
     <div class="messages">
-      <p>My dearest love 💖, wishing you endless smiles, joy, and all the happiness in the world!</p>
-      <p>You make my life brighter every single day ✨</p>
-      <p>Here's to more beautiful memories together 🥰</p>
+      <p>Wishing you endless smiles, laughter, and happiness today and always 💖</p>
+      <p>You are my sunshine and my happiness ✨</p>
+      <p>May your year be full of love, joy, and magical moments 🥰</p>
     </div>
 
     <div class="photos" id="photoContainer"></div>
 
     <div class="footer">
-      <p>💕 Made with all my love for my amazing girlfriend 💕</p>
+      <p>💕 Made with all my love, just for you 💕</p>
     </div>
   </div>
 
@@ -123,29 +161,29 @@
     // Confetti
     function launchConfetti() {
       confetti({
-        particleCount: 150,
-        spread: 80,
+        particleCount: 200,
+        spread: 100,
         origin: { y: 0.6 },
         colors: ['#ff758c', '#ff7eb3', '#ffb6c1', '#ffd1dc', '#fff0f5']
       });
     }
     launchConfetti();
-    setInterval(launchConfetti, 4000);
+    setInterval(launchConfetti, 5000);
 
     // Floating hearts
     const heartsContainer = document.getElementById('hearts');
-    for (let i = 0; i < 15; i++) {
+    for (let i = 0; i < 20; i++) {
       const heart = document.createElement('div');
       heart.className = 'heart';
       heart.textContent = '💕';
       heart.style.left = Math.random() * 100 + '%';
-      heart.style.fontSize = (12 + Math.random() * 16) + 'px';
+      heart.style.fontSize = (12 + Math.random() * 18) + 'px';
       heart.style.animationDelay = Math.random() * 6 + 's';
-      heart.style.animationDuration = (5 + Math.random() * 4) + 's';
+      heart.style.animationDuration = (5 + Math.random() * 5) + 's';
       heartsContainer.appendChild(heart);
     }
 
-    // Photos array (will automatically use placeholder if local file not found)
+    // Photos (fallback if missing)
     const photoFiles = [
       "photos/1000213254.jpg",
       "photos/1000213270.jpg",
@@ -157,15 +195,14 @@
     photoFiles.forEach((url, i) => {
       const card = document.createElement('div');
       card.className = 'photo-card';
-      card.style.animationDelay = (i * 0.2) + 's';
+      card.style.animationDelay = (i * 0.3) + 's';
       
       const img = document.createElement('img');
       img.src = url;
       img.alt = 'Mimi Photo';
       
-      // Fallback if photo is missing
       img.onerror = function() {
-        this.src = `https://source.unsplash.com/400x400/?cute-pet&sig=${i}`;
+        this.src = `https://source.unsplash.com/400x400/?birthday&sig=${i}`;
       };
 
       card.appendChild(img);
