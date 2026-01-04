@@ -23,25 +23,25 @@
       backdrop-filter: blur(25px);
       border-radius: 24px;
       box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-      padding: 30px 20px;
-      max-width: 800px;
+      padding: 50px 20px;
+      max-width: 850px;
       width: 100%;
       position: relative;
-      overflow: hidden;
+      overflow: visible;
     }
 
     .title {
       font-size: clamp(2rem, 6vw, 3.5rem);
       color: #fff;
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 25px;
       animation: bounce 2s infinite;
       text-shadow: 0 4px 25px rgba(0,0,0,0.3);
     }
 
     .messages {
       text-align: center;
-      margin-bottom: 30px;
+      margin-bottom: 35px;
       opacity: 0;
       animation: fadeIn 2s forwards;
       animation-delay: 0.5s;
@@ -63,7 +63,7 @@
 
     .photos {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
       gap: 15px;
       margin-bottom: 25px;
       opacity: 0;
@@ -82,14 +82,15 @@
 
     .photo-card img {
       width: 100%;
-      height: 180px;
-      object-fit: cover;
+      height: 220px;
+      object-fit: contain;
+      background: #fff;
       transition: all 0.5s ease;
     }
 
     .photo-card:hover img {
-      transform: scale(1.1) rotate(-2deg);
-      filter: brightness(1.15);
+      transform: scale(1.05);
+      filter: brightness(1.1);
     }
 
     .footer {
@@ -109,15 +110,20 @@
       animation: float 3s ease-in-out infinite;
     }
 
-    /* Decorative emojis */
-    .deco { position: absolute; font-size: 2rem; animation: float 3s ease-in-out infinite; }
-    .deco-1 { top: -10px; left: -10px; }
-    .deco-2 { top: -10px; right: -10px; animation-delay: 0.5s; }
-    .deco-3 { bottom: -10px; left: -10px; animation-delay: 1s; }
-    .deco-4 { bottom: -10px; right: -10px; animation-delay: 1.5s; }
+    /* Decorative emojis with horizontal floating */
+    .deco {
+      position: absolute;
+      font-size: 3rem;
+      z-index: 1;
+      animation: floatSide 4s ease-in-out infinite alternate;
+    }
+    .deco-1 { top: -35px; left: -35px; animation-delay: 0s; }
+    .deco-2 { top: -35px; right: -35px; animation-delay: 1s; }
+    .deco-3 { bottom: -35px; left: -35px; animation-delay: 2s; }
+    .deco-4 { bottom: -35px; right: -35px; animation-delay: 3s; }
 
     /* Floating hearts */
-    .hearts { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: -1; }
+    .hearts { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
     .heart { position: absolute; opacity: 0.3; animation: floatUp 6s ease-in-out infinite; }
 
     /* Animations */
@@ -129,6 +135,18 @@
     @keyframes floatUp { 0%{transform:translateY(100vh) rotate(0deg);opacity:0;} 10%{opacity:0.3;} 90%{opacity:0.3;} 100%{transform:translateY(-100px) rotate(360deg);opacity:0;} }
     @keyframes messageFade { from {opacity:0; transform:translateY(20px);} to {opacity:1; transform:translateY(0);} }
 
+    /* Horizontal float for emojis */
+    @keyframes floatSide {
+      0% { transform: translateX(0px); }
+      50% { transform: translateX(12px); }
+      100% { transform: translateX(0px); }
+    }
+
+    /* Responsive for mobile */
+    @media (max-width: 500px) {
+      .photo-card img { height: 180px; }
+      .deco { font-size: 2.2rem; }
+    }
   </style>
 </head>
 <body>
@@ -162,7 +180,7 @@
     function launchConfetti() {
       confetti({
         particleCount: 200,
-        spread: 100,
+        spread: 120,
         origin: { y: 0.6 },
         colors: ['#ff758c', '#ff7eb3', '#ffb6c1', '#ffd1dc', '#fff0f5']
       });
@@ -172,18 +190,18 @@
 
     // Floating hearts
     const heartsContainer = document.getElementById('hearts');
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 25; i++) {
       const heart = document.createElement('div');
       heart.className = 'heart';
       heart.textContent = '💕';
       heart.style.left = Math.random() * 100 + '%';
-      heart.style.fontSize = (12 + Math.random() * 18) + 'px';
+      heart.style.fontSize = (12 + Math.random() * 20) + 'px';
       heart.style.animationDelay = Math.random() * 6 + 's';
       heart.style.animationDuration = (5 + Math.random() * 5) + 's';
       heartsContainer.appendChild(heart);
     }
 
-    // Photos (fallback if missing)
+    // Photos array (with fallback)
     const photoFiles = [
       "photos/1000213254.jpg",
       "photos/1000213270.jpg",
@@ -200,9 +218,8 @@
       const img = document.createElement('img');
       img.src = url;
       img.alt = 'Mimi Photo';
-      
       img.onerror = function() {
-        this.src = `https://source.unsplash.com/400x400/?birthday&sig=${i}`;
+        this.src = `https://source.unsplash.com/600x600/?birthday&sig=${i}`;
       };
 
       card.appendChild(img);
