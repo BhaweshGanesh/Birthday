@@ -4,22 +4,28 @@
   <meta charset="UTF-8">
   <title>🎉 Happy Birthday Mimi 🎂</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
   <style>
     * { box-sizing: border-box; margin:0; padding:0; }
+
     body {
       font-family: 'Poppins', sans-serif;
       min-height: 100vh;
       background: linear-gradient(135deg, #f06292 0%, #ec407a 50%, #f48fb1 100%);
-      display: flex; justify-content: center; align-items: center;
-      padding: 20px; overflow-x: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      overflow-x: hidden;
     }
 
     h1 { font-family: 'Playfair Display', serif; }
-    
+
     .container {
-      background: linear-gradient(180deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.05) 100%);
+      background: linear-gradient(180deg, rgba(255,255,255,0.2), rgba(255,255,255,0.05));
       backdrop-filter: blur(25px);
       border-radius: 24px;
       box-shadow: 0 20px 40px rgba(0,0,0,0.3);
@@ -27,7 +33,6 @@
       max-width: 850px;
       width: 100%;
       position: relative;
-      overflow: visible;
     }
 
     .title {
@@ -51,7 +56,6 @@
       font-size: 1.1rem;
       color: rgba(255,255,255,0.95);
       margin-bottom: 10px;
-      font-weight: 400;
       line-height: 1.5;
       transform: translateY(20px);
       animation: messageFade 1s forwards;
@@ -72,11 +76,9 @@
     }
 
     .photo-card {
-      position: relative;
       overflow: hidden;
       border-radius: 16px;
       box-shadow: 0 8px 25px rgba(0,0,0,0.4);
-      transform: scale(0.9);
       animation: pop 1s forwards;
     }
 
@@ -85,12 +87,7 @@
       height: 220px;
       object-fit: contain;
       background: #fff;
-      transition: all 0.5s ease;
-    }
-
-    .photo-card:hover img {
-      transform: scale(1.05);
-      filter: brightness(1.1);
+      transition: 0.5s ease;
     }
 
     .footer {
@@ -106,66 +103,54 @@
     .footer p {
       font-size: 1.2rem;
       color: #fff;
-      font-weight: 500;
       animation: float 3s ease-in-out infinite;
     }
 
-    /* Decorative emojis with horizontal floating */
-    .deco {
-      position: absolute;
-      font-size: 3rem;
-      z-index: 1;
-      animation: floatSide 4s ease-in-out infinite alternate;
-    }
-    .deco-1 { top: -35px; left: -35px; animation-delay: 0s; }
-    .deco-2 { top: -35px; right: -35px; animation-delay: 1s; }
-    .deco-3 { bottom: -35px; left: -35px; animation-delay: 2s; }
-    .deco-4 { bottom: -35px; right: -35px; animation-delay: 3s; }
-
     /* Floating hearts */
-    .hearts { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
-    .heart { position: absolute; opacity: 0.3; animation: floatUp 6s ease-in-out infinite; }
-
-    /* Animations */
-    @keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
-    @keyframes bounce { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-12px);} }
-    @keyframes pop { 0%{transform:scale(0.8);opacity:0;} 100%{transform:scale(1);opacity:1;} }
-    @keyframes float { 0%,100%{transform:translateY(0) rotate(0deg);} 50%{transform:translateY(-8px) rotate(2deg);} }
-    @keyframes sparkle { 0%,100%{opacity:1; transform:scale(1);} 50%{opacity:0.7; transform:scale(1.05);} }
-    @keyframes floatUp { 0%{transform:translateY(100vh) rotate(0deg);opacity:0;} 10%{opacity:0.3;} 90%{opacity:0.3;} 100%{transform:translateY(-100px) rotate(360deg);opacity:0;} }
-    @keyframes messageFade { from {opacity:0; transform:translateY(20px);} to {opacity:1; transform:translateY(0);} }
-
-    /* Horizontal float for emojis */
-    @keyframes floatSide {
-      0% { transform: translateX(0px); }
-      50% { transform: translateX(12px); }
-      100% { transform: translateX(0px); }
+    .hearts {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
     }
 
-    /* Responsive for mobile */
-    @media (max-width: 500px) {
-      .photo-card img { height: 180px; }
-      .deco { font-size: 2.2rem; }
+    .heart {
+      position: absolute;
+      opacity: 0.3;
+      animation: floatUp 6s linear infinite;
+    }
+
+    @keyframes fadeIn { to {opacity:1;} }
+    @keyframes bounce { 50%{transform:translateY(-12px);} }
+    @keyframes pop { from{transform:scale(0.8);opacity:0;} to{transform:scale(1);opacity:1;} }
+    @keyframes float { 50%{transform:translateY(-8px);} }
+    @keyframes floatUp {
+      from { transform: translateY(100vh); opacity: 0; }
+      to { transform: translateY(-100px); opacity: 0.3; }
+    }
+    @keyframes messageFade {
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
+
 <body>
-  <!-- Floating Hearts -->
+
+  <!-- Background Music -->
+  <audio id="bgMusic" loop>
+    <source src="music/Taylor Swift - Lover (Official Music Video).mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Floating hearts -->
   <div class="hearts" id="hearts"></div>
 
   <div class="container">
-    <!-- Decorative Emojis -->
-    <span class="deco deco-1">🎈</span>
-    <span class="deco deco-2">🎁</span>
-    <span class="deco deco-3">🌹</span>
-    <span class="deco deco-4">💝</span>
-
     <h1 class="title">🎂 Happy Birthday Menuka (Mimi)! 🎉</h1>
 
     <div class="messages">
-      <p>Wishing you endless smiles, laughter, and happiness today and always 💖</p>
+      <p>Wishing you endless smiles, laughter, and happiness 💖</p>
       <p>You are my sunshine and my happiness ✨</p>
-      <p>May your year be full of love, joy, and magical moments 🥰</p>
+      <p>May your year be full of love and magic 🥰</p>
     </div>
 
     <div class="photos" id="photoContainer"></div>
@@ -176,55 +161,62 @@
   </div>
 
   <script>
-    // Confetti
+    /* 🎉 Confetti */
     function launchConfetti() {
       confetti({
         particleCount: 200,
         spread: 120,
-        origin: { y: 0.6 },
-        colors: ['#ff758c', '#ff7eb3', '#ffb6c1', '#ffd1dc', '#fff0f5']
+        origin: { y: 0.6 }
       });
     }
     launchConfetti();
     setInterval(launchConfetti, 5000);
 
-    // Floating hearts
-    const heartsContainer = document.getElementById('hearts');
+    /* 💕 Floating hearts */
+    const hearts = document.getElementById("hearts");
     for (let i = 0; i < 25; i++) {
-      const heart = document.createElement('div');
-      heart.className = 'heart';
-      heart.textContent = '💕';
-      heart.style.left = Math.random() * 100 + '%';
-      heart.style.fontSize = (12 + Math.random() * 20) + 'px';
-      heart.style.animationDelay = Math.random() * 6 + 's';
-      heart.style.animationDuration = (5 + Math.random() * 5) + 's';
-      heartsContainer.appendChild(heart);
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.textContent = "💕";
+      heart.style.left = Math.random() * 100 + "%";
+      heart.style.fontSize = (12 + Math.random() * 20) + "px";
+      heart.style.animationDuration = (5 + Math.random() * 5) + "s";
+      hearts.appendChild(heart);
     }
 
-    // Photos array (with fallback)
-    const photoFiles = [
+    /* 🖼 Photos */
+    const photos = [
       "photos/1000213254.jpg",
       "photos/1000213270.jpg",
       "photos/1000213285.jpg",
       "photos/1000213443.jpg"
     ];
 
-    const container = document.getElementById('photoContainer');
-    photoFiles.forEach((url, i) => {
-      const card = document.createElement('div');
-      card.className = 'photo-card';
-      card.style.animationDelay = (i * 0.3) + 's';
-      
-      const img = document.createElement('img');
-      img.src = url;
-      img.alt = 'Mimi Photo';
-      img.onerror = function() {
-        this.src = `https://source.unsplash.com/600x600/?birthday&sig=${i}`;
-      };
-
+    const photoContainer = document.getElementById("photoContainer");
+    photos.forEach((src) => {
+      const card = document.createElement("div");
+      card.className = "photo-card";
+      const img = document.createElement("img");
+      img.src = src;
       card.appendChild(img);
-      container.appendChild(card);
+      photoContainer.appendChild(card);
     });
+
+    /* 🎵 START MUSIC ON FIRST CLICK */
+    const bgMusic = document.getElementById("bgMusic");
+    let musicStarted = false;
+
+    function startMusic() {
+      if (!musicStarted) {
+        bgMusic.volume = 0.5;
+        bgMusic.play().catch(() => {});
+        musicStarted = true;
+      }
+    }
+
+    document.addEventListener("click", startMusic);
+    document.addEventListener("touchstart", startMusic);
   </script>
+
 </body>
 </html>
